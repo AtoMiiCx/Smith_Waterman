@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class Main {
+
+    //Helper function to print 2d array as matrix
     public static void printRow(Object[] row) {
         for (Object i : row) {
             System.out.print(i);
@@ -14,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        File data = new File("C:/Users/adrie/Documents/github/Smith_Waterman/DNA_data.txt");
+        //Read the data file and specific lines with DNA sequences
+        File data = new File("E:\\OneDrive - Efrei\\Concordia\\Assignment 2\\Smith_Waterman\\DNA_data.txt");
         Scanner read = new Scanner(data);
         String[] dna = new String[10];
         int i = 0;
@@ -43,10 +46,14 @@ public class Main {
 
             System.out.println(dna[i] + "  " + dna[i + 1] +"\n");
 
+            //Initialization of the matrix
+
             for (int j = 2; j < 12; j++) {
                 matrix[0][j] = dna[i].charAt(j - 2);
                 matrix[j][0] = dna[i + 1].charAt(j - 2);
             }
+
+            //Implement the Smith Waterman algorithm
 
             Smith_Waterman S = new Smith_Waterman(dna[i], dna[i + 1], matrix, -2);
 

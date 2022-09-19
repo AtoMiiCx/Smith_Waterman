@@ -2,12 +2,15 @@ import java.lang.Math;
 
 
 public class Smith_Waterman {
+    //Variables
+
     String sq1, sq2;
     Object[][] matrix;
     Object[][] dp;
     int gap_penalty, score;
     String[] finaloutput;
 
+    //Constructor that initialize every variable
     public Smith_Waterman(String sq1, String sq2, Object[][] matrix, int gap_penalty) {
         this.sq1 = sq1.toUpperCase();
         this.sq2 = sq2.toUpperCase();
@@ -18,7 +21,8 @@ public class Smith_Waterman {
         this.finaloutput = getsequences();
     }
 
-    public Object[][] dynamic() {  //The main method to calculate the matrix scores for the sequences
+    //The main method to calculate the score matrix for the sequences
+    public Object[][] dynamic() {
         Object[][] dp = new Object[11][11];
 
         for (int i = 0; i < dp.length; i++) {
@@ -34,6 +38,7 @@ public class Smith_Waterman {
                 } else {
                     score = 0;
                 }
+                //Using equation 1, we implement the score matrix with the maximum
                 dp[i][j] = Math.max(Math.max(Math.max(gap_penalty, (int) dp[i - 1][j] + gap_penalty), Math.max(gap_penalty, (int) dp[i][j - 1] + gap_penalty)), Math.max(0, (int) dp[i - 1][j - 1] + score));
             }
         }
@@ -77,7 +82,7 @@ public class Smith_Waterman {
         return max;
     }
 
-    //Finds the path and gets the output modified sequences
+    //Finds the traceback path and gets the output corresponding sequences
     public String[] getsequences() {
         String outputsq1 = "";
         String outputsq2 = "";
@@ -104,7 +109,7 @@ public class Smith_Waterman {
 
     }
 
-    //Helper function for returning the aligned strings
+    //Helper function for returning the two aligned sequences
     public String getoutputsequences() {
         return finaloutput[0] +"\n"+finaloutput[1];
     }
